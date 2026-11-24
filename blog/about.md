@@ -1,0 +1,48 @@
+---
+layout: page
+title: About
+---
+
+specfence is a tool that turns requirements or existing code into Alloy and TLA+ models, checks them exhaustively at small scope, confirms what it finds against the real code, and then guards later changes against the models. It works on two kinds of defect: temporal (races, deadlocks, lost wake-ups, ordering violations) and structural (broken shape invariants in data and APIs).
+
+The worked examples' evidence (the pool, kombu and engine-spike files) is in [this blog's repository](https://github.com/ashitpatel/specfence-blog/tree/main/evidence). The benchmark and run records behind the evaluation posts are kept privately; ask the author for access.
+
+Stage: proof of concept / pilot. The tool has not been deployed to any production system; the evidence in this series comes from benchmark runs on open-source code, a constructed greenfield run, and the tool guarding its own repository.
+
+This series walks through the idea, five worked examples, the landscape, the trust point, three deep comparisons, the conversation, and the evidence arc:
+
+1. What tests cannot see — the gap the tool fills.
+2. How it works — the two checkers and the loop around them.
+3. A pool, specified before it exists — greenfield, from five lines of prose.
+4. The commit that Log4j would have flagged — a feature guarded at introduction.
+5. The lost wake-up — a latent race in stomp, found blind and demonstrated.
+6. The pool that overfilled — the same defect as a structural counterexample in kombu.
+7. The guard that fires — catching drift during a change, twice.
+8. The landscape — where specfence fits among its neighbors.
+9. Slices — what gets checked, what might not, and how to watch the gaps.
+10. Specula vs specfence — the same loop, different answers to its critics.
+11. Imandra vs specfence — ask the logician, or set the tripwire.
+12. Harness² vs specfence — improve the agent, or check the work.
+13. How to talk to the tool — the conversation behind the verdicts.
+14. The evidence file — every run behind the claims, calibrated.
+15. sshd, examined — a KEX race matched, an agent left racy (Java).
+16. celery, examined — the flush defect, found unlabelled, then matched (Python).
+17. reactor, examined — precision on a family the tool never trained on (reactive Java).
+18. caddy, examined — a logger race matched to its fix, and a fatal race upstream fixed later (Go).
+19. Gates, not words — what stopped an agent skipping a step.
+20. bull, examined — a shared timer name matched to its fix, and the same wait-gap found three times (Node).
+21. Eight more gates — what an agent could close alone in the code mode.
+22. Services, examined — the database platform, finally instantiated (Saleor, Healthchecks).
+23. Structural verdicts — the Alloy track, measured end to end.
+24. A second engine — symbolic verdicts where TLC runs out, adopted only as violations.
+
+The evidence beside the worked examples lives in this repository under `evidence/`: specs, checker logs and review verdicts. The benchmark records the evaluation posts are built on are kept privately, and each post says so where it cites them. Where a demonstration is constructed rather than found — a deliberate probe, a hand-authored regression — the post says so.
+
+## The two checkers, briefly
+
+- **TLA+** (Leslie Lamport) is a language for describing systems as states and the actions that move between them; its TLC model checker explores every reachable state at small scope, hunting interleaving bugs. Start at [Lamport's TLA+ page](https://lamport.azurewebsites.net/tla/tla.html) (free book *Specifying Systems* included) or the hands-on [Learn TLA+](https://learntla.com/).
+- **Alloy** (Daniel Jackson, MIT) is a language for declaring a system's relations and asserting what must always hold; its analyzer searches for a snapshot that breaks the claim. Start at [alloytools.org](https://alloytools.org/) (free Analyzer, tutorial, and the book *Software Abstractions*).
+
+Why these two as the guardrails: they split the problem along its natural seam — TLA+ sees behavior over time, Alloy sees shapes in a snapshot — both check exhaustively rather than sampling, both answer violations with concrete counterexamples, both are mature open tools, and both are compact enough for agents to author. Together they cover what testing can't: every interleaving, every shape, at small scope.
+
+The posts here were written by directing an AI agent: I set the direction and made the editorial calls, and the agent drafted them and checked the facts against the evidence. Corrections are welcome as issues.

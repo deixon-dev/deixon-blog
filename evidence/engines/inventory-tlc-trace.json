@@ -1,0 +1,7 @@
+[
+ "1. start: seen = <<0, 0>>, sold = 0, valid = <<[stock |-> FALSE], [stock |-> FALSE]>>, pc = <<\"idle\", \"idle\">>, rowlock = [stock |-> 0], db = [stock |-> 1], lockedBy = <<0, 0>>",
+ "2. Read(1) [code: InventoryService.reserve]: seen: <<0, 0>> -> <<1, 0>>; valid: <<[stock |-> FALSE], [stock |-> FALSE]>> -> <<[stock |-> TRUE], [stock |-> FALSE]>>; pc: <<\"idle\", \"idle\">> -> <<\"read\", \"idle\">>; lockedBy: <<0, 0>> -> <<1, 0>>",
+ "3. Read(2) [code: InventoryService.reserve]: seen: <<1, 0>> -> <<1, 1>>; valid: <<[stock |-> TRUE], [stock |-> FALSE]>> -> <<[stock |-> TRUE], [stock |-> TRUE]>>; pc: <<\"read\", \"idle\">> -> <<\"read\", \"read\">>; lockedBy: <<1, 0>> -> <<1, 2>>",
+ "4. Write(1) [code: InventoryService.reserve]: sold: 0 -> 1; valid: <<[stock |-> TRUE], [stock |-> TRUE]>> -> <<[stock |-> TRUE], [stock |-> FALSE]>>; pc: <<\"read\", \"read\">> -> <<\"done\", \"read\">>; db: [stock |-> 1] -> [stock |-> 0]; lockedBy: <<1, 2>> -> <<0, 2>>",
+ "5. Write(2) [code: InventoryService.reserve]: sold: 1 -> 2; valid: <<[stock |-> TRUE], [stock |-> FALSE]>> -> <<[stock |-> FALSE], [stock |-> FALSE]>>; pc: <<\"done\", \"read\">> -> <<\"done\", \"done\">>; lockedBy: <<0, 2>> -> <<0, 0>>"
+]

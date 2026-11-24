@@ -1,0 +1,53 @@
+{
+ "base": "evidence/kombu/base",
+ "head": "evidence/kombu/head",
+ "breaks": [
+  "NoDoubleHold"
+ ],
+ "restores": [],
+ "implications": [
+  {
+   "property": "NoDoubleHold",
+   "effect": "breaks",
+   "spec": "code/kombu/.specverify/Resource.als",
+   "origin": "introduced",
+   "lang": "alloy",
+   "claim": "Claim: a resource is never both queued and checked out at once.",
+   "claim_missing": false,
+   "counterexample": {
+    "side": "head",
+    "steps": [
+     "order: State$0 < State$1 < State$2 < State$3 < State$4",
+     "State$0: _closed = {0}; _resource = {}; _dirty = {}",
+     "State$1: _closed = {0}; _resource = {Elem$0}; _dirty = {}",
+     "State$2: _closed = {0}; _resource = {}; _dirty = {Elem$0}",
+     "State$3: _closed = {0}; _resource = {Elem$0}; _dirty = {Elem$0}",
+     "State$4: _closed = {0}; _resource = {Elem$0}; _dirty = {Elem$0}",
+     "Cfg$0: limit = {1}",
+     "Elem = {Elem$0}; Thread = {Thread$0, Thread$1}"
+    ],
+    "scenario": ""
+   },
+   "code": [
+    {
+     "symbol": "code.kombu.resource.Resource.acquire",
+     "file": "code/kombu/resource.py",
+     "line": 234
+    },
+    {
+     "symbol": "code.kombu.resource.Resource._add_when_empty",
+     "file": "code/kombu/resource.py",
+     "line": 58
+    },
+    {
+     "symbol": "code.kombu.resource.Resource.release",
+     "file": "code/kombu/resource.py",
+     "line": 246
+    }
+   ],
+   "test_outline": null,
+   "test_outline_reason": "an Alloy counterexample is a snapshot, not a schedule: no test outline",
+   "in_words_owed": "one sentence in the person's domain words: what a user of this system sees when the scenario happens, citing the scenario"
+  }
+ ]
+}

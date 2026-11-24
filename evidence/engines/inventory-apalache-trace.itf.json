@@ -1,0 +1,647 @@
+{
+  "#meta": {
+    "format": "ITF",
+    "format-description": "https://apalache-mc.org/docs/adr/015adr-trace.html",
+    "description": "Created by Apalache on Sat Nov 21 16:42:23 PST 2026",
+    "varTypes": {
+      "seen": "(Int -> Int)",
+      "sold": "Int",
+      "valid": "(Int -> (Str -> Bool))",
+      "pc": "(Int -> Str)",
+      "rowlock": "(Str -> Int)",
+      "db": "(Str -> Int)",
+      "lockedBy": "(Int -> Int)"
+    }
+  },
+  "params": [
+    "Instances",
+    "InitialStock",
+    "Threads"
+  ],
+  "vars": [
+    "seen",
+    "sold",
+    "valid",
+    "pc",
+    "rowlock",
+    "db",
+    "lockedBy"
+  ],
+  "states": [
+    {
+      "#meta": {
+        "index": 0
+      },
+      "InitialStock": {
+        "#bigint": "1"
+      },
+      "Instances": {
+        "#bigint": "2"
+      },
+      "Threads": {
+        "#bigint": "2"
+      },
+      "db": {
+        "#map": [
+          [
+            "stock",
+            {
+              "#bigint": "1"
+            }
+          ]
+        ]
+      },
+      "lockedBy": {
+        "#map": [
+          [
+            {
+              "#bigint": "1"
+            },
+            {
+              "#bigint": "0"
+            }
+          ],
+          [
+            {
+              "#bigint": "2"
+            },
+            {
+              "#bigint": "0"
+            }
+          ]
+        ]
+      },
+      "pc": {
+        "#map": [
+          [
+            {
+              "#bigint": "1"
+            },
+            "idle"
+          ],
+          [
+            {
+              "#bigint": "2"
+            },
+            "idle"
+          ]
+        ]
+      },
+      "rowlock": {
+        "#map": [
+          [
+            "stock",
+            {
+              "#bigint": "0"
+            }
+          ]
+        ]
+      },
+      "seen": {
+        "#map": [
+          [
+            {
+              "#bigint": "1"
+            },
+            {
+              "#bigint": "0"
+            }
+          ],
+          [
+            {
+              "#bigint": "2"
+            },
+            {
+              "#bigint": "0"
+            }
+          ]
+        ]
+      },
+      "sold": {
+        "#bigint": "0"
+      },
+      "valid": {
+        "#map": [
+          [
+            {
+              "#bigint": "1"
+            },
+            {
+              "#map": [
+                [
+                  "stock",
+                  false
+                ]
+              ]
+            }
+          ],
+          [
+            {
+              "#bigint": "2"
+            },
+            {
+              "#map": [
+                [
+                  "stock",
+                  false
+                ]
+              ]
+            }
+          ]
+        ]
+      }
+    },
+    {
+      "#meta": {
+        "index": 1
+      },
+      "InitialStock": {
+        "#bigint": "1"
+      },
+      "Instances": {
+        "#bigint": "2"
+      },
+      "Threads": {
+        "#bigint": "2"
+      },
+      "db": {
+        "#map": [
+          [
+            "stock",
+            {
+              "#bigint": "1"
+            }
+          ]
+        ]
+      },
+      "lockedBy": {
+        "#map": [
+          [
+            {
+              "#bigint": "1"
+            },
+            {
+              "#bigint": "1"
+            }
+          ],
+          [
+            {
+              "#bigint": "2"
+            },
+            {
+              "#bigint": "0"
+            }
+          ]
+        ]
+      },
+      "pc": {
+        "#map": [
+          [
+            {
+              "#bigint": "1"
+            },
+            "read"
+          ],
+          [
+            {
+              "#bigint": "2"
+            },
+            "idle"
+          ]
+        ]
+      },
+      "rowlock": {
+        "#map": [
+          [
+            "stock",
+            {
+              "#bigint": "0"
+            }
+          ]
+        ]
+      },
+      "seen": {
+        "#map": [
+          [
+            {
+              "#bigint": "1"
+            },
+            {
+              "#bigint": "1"
+            }
+          ],
+          [
+            {
+              "#bigint": "2"
+            },
+            {
+              "#bigint": "0"
+            }
+          ]
+        ]
+      },
+      "sold": {
+        "#bigint": "0"
+      },
+      "valid": {
+        "#map": [
+          [
+            {
+              "#bigint": "1"
+            },
+            {
+              "#map": [
+                [
+                  "stock",
+                  true
+                ]
+              ]
+            }
+          ],
+          [
+            {
+              "#bigint": "2"
+            },
+            {
+              "#map": [
+                [
+                  "stock",
+                  false
+                ]
+              ]
+            }
+          ]
+        ]
+      }
+    },
+    {
+      "#meta": {
+        "index": 2
+      },
+      "InitialStock": {
+        "#bigint": "1"
+      },
+      "Instances": {
+        "#bigint": "2"
+      },
+      "Threads": {
+        "#bigint": "2"
+      },
+      "db": {
+        "#map": [
+          [
+            "stock",
+            {
+              "#bigint": "1"
+            }
+          ]
+        ]
+      },
+      "lockedBy": {
+        "#map": [
+          [
+            {
+              "#bigint": "1"
+            },
+            {
+              "#bigint": "1"
+            }
+          ],
+          [
+            {
+              "#bigint": "2"
+            },
+            {
+              "#bigint": "2"
+            }
+          ]
+        ]
+      },
+      "pc": {
+        "#map": [
+          [
+            {
+              "#bigint": "1"
+            },
+            "read"
+          ],
+          [
+            {
+              "#bigint": "2"
+            },
+            "read"
+          ]
+        ]
+      },
+      "rowlock": {
+        "#map": [
+          [
+            "stock",
+            {
+              "#bigint": "0"
+            }
+          ]
+        ]
+      },
+      "seen": {
+        "#map": [
+          [
+            {
+              "#bigint": "1"
+            },
+            {
+              "#bigint": "1"
+            }
+          ],
+          [
+            {
+              "#bigint": "2"
+            },
+            {
+              "#bigint": "1"
+            }
+          ]
+        ]
+      },
+      "sold": {
+        "#bigint": "0"
+      },
+      "valid": {
+        "#map": [
+          [
+            {
+              "#bigint": "1"
+            },
+            {
+              "#map": [
+                [
+                  "stock",
+                  true
+                ]
+              ]
+            }
+          ],
+          [
+            {
+              "#bigint": "2"
+            },
+            {
+              "#map": [
+                [
+                  "stock",
+                  true
+                ]
+              ]
+            }
+          ]
+        ]
+      }
+    },
+    {
+      "#meta": {
+        "index": 3
+      },
+      "InitialStock": {
+        "#bigint": "1"
+      },
+      "Instances": {
+        "#bigint": "2"
+      },
+      "Threads": {
+        "#bigint": "2"
+      },
+      "db": {
+        "#map": [
+          [
+            "stock",
+            {
+              "#bigint": "0"
+            }
+          ]
+        ]
+      },
+      "lockedBy": {
+        "#map": [
+          [
+            {
+              "#bigint": "1"
+            },
+            {
+              "#bigint": "0"
+            }
+          ],
+          [
+            {
+              "#bigint": "2"
+            },
+            {
+              "#bigint": "2"
+            }
+          ]
+        ]
+      },
+      "pc": {
+        "#map": [
+          [
+            {
+              "#bigint": "1"
+            },
+            "done"
+          ],
+          [
+            {
+              "#bigint": "2"
+            },
+            "read"
+          ]
+        ]
+      },
+      "rowlock": {
+        "#map": [
+          [
+            "stock",
+            {
+              "#bigint": "0"
+            }
+          ]
+        ]
+      },
+      "seen": {
+        "#map": [
+          [
+            {
+              "#bigint": "1"
+            },
+            {
+              "#bigint": "1"
+            }
+          ],
+          [
+            {
+              "#bigint": "2"
+            },
+            {
+              "#bigint": "1"
+            }
+          ]
+        ]
+      },
+      "sold": {
+        "#bigint": "1"
+      },
+      "valid": {
+        "#map": [
+          [
+            {
+              "#bigint": "1"
+            },
+            {
+              "#map": [
+                [
+                  "stock",
+                  true
+                ]
+              ]
+            }
+          ],
+          [
+            {
+              "#bigint": "2"
+            },
+            {
+              "#map": [
+                [
+                  "stock",
+                  false
+                ]
+              ]
+            }
+          ]
+        ]
+      }
+    },
+    {
+      "#meta": {
+        "index": 4
+      },
+      "InitialStock": {
+        "#bigint": "1"
+      },
+      "Instances": {
+        "#bigint": "2"
+      },
+      "Threads": {
+        "#bigint": "2"
+      },
+      "db": {
+        "#map": [
+          [
+            "stock",
+            {
+              "#bigint": "0"
+            }
+          ]
+        ]
+      },
+      "lockedBy": {
+        "#map": [
+          [
+            {
+              "#bigint": "1"
+            },
+            {
+              "#bigint": "0"
+            }
+          ],
+          [
+            {
+              "#bigint": "2"
+            },
+            {
+              "#bigint": "0"
+            }
+          ]
+        ]
+      },
+      "pc": {
+        "#map": [
+          [
+            {
+              "#bigint": "1"
+            },
+            "done"
+          ],
+          [
+            {
+              "#bigint": "2"
+            },
+            "done"
+          ]
+        ]
+      },
+      "rowlock": {
+        "#map": [
+          [
+            "stock",
+            {
+              "#bigint": "0"
+            }
+          ]
+        ]
+      },
+      "seen": {
+        "#map": [
+          [
+            {
+              "#bigint": "1"
+            },
+            {
+              "#bigint": "1"
+            }
+          ],
+          [
+            {
+              "#bigint": "2"
+            },
+            {
+              "#bigint": "1"
+            }
+          ]
+        ]
+      },
+      "sold": {
+        "#bigint": "2"
+      },
+      "valid": {
+        "#map": [
+          [
+            {
+              "#bigint": "1"
+            },
+            {
+              "#map": [
+                [
+                  "stock",
+                  false
+                ]
+              ]
+            }
+          ],
+          [
+            {
+              "#bigint": "2"
+            },
+            {
+              "#map": [
+                [
+                  "stock",
+                  false
+                ]
+              ]
+            }
+          ]
+        ]
+      }
+    }
+  ]
+}

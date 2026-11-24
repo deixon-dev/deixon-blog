@@ -1,0 +1,95 @@
+---
+title: "The guard that fires"
+description: "Two changes that break guarded properties: a probe that un-fixes HikariCP issue #591 trips the temporal gate with BLOCKING, and a rework of kombu's release breaks the structural golden. Both caught at review time."
+layout: post
+series: specfence
+part: 7
+date: 2026-11-11
+---
+
+*Part 7 of 24 in a series on specfence. The series so far: [the gap]({% post_url 2026-11-09-what-tests-cannot-see %}), [the machinery]({% post_url 2026-11-10-how-it-works %}), [greenfield]({% post_url 2026-11-11-greenfield-pool %}), [a guarded feature]({% post_url 2026-11-12-feature-log4j %}), [a temporal catch]({% post_url 2026-11-13-temporal-stomp %}), [a structural catch]({% post_url 2026-11-14-structural-kombu %}). This post closes the loop: what happens when a change breaks a guarded property.*
+
+*Level L2 · Needs: parts 2 and 6 (goldens, the kombu model). Two gate firings.*
+
+A spec that nothing re-checks is documentation with delusions. The tool pins every property that held as a *golden*: a later change that flips one from holding to broken is a regression, and the gate says so — `BLOCKING`, with the property named. This post shows the gate firing twice: once temporal, once structural. Both demonstrations are constructed — a deliberate probe, a hand-authored regression — and this post labels them as such. The mechanism is what's on trial here, and it either fires or it doesn't.
+
+## Temporal: un-fixing HikariCP #591
+
+The setup is real. HikariCP's connection pool had a race on its statement list, fixed upstream as issue #591: at HEAD, `trackStatement`, `untrackStatement`, and `closeStatements` are all `synchronized` on the connection. The golden property, `FastListTracked`, models the two sharing callers — each step tagged at the function that shares the instance (`ProxyConnection.trackStatement`, `untrackStatement`). The tagging was learned the hard way: a container-tagged variant confirmed falsely on the fixed code.
+
+The golden's meaning at approval: the defect is *refuted* on this code — the fix holds, and the baseline guards against the bug coming back. (Goldens on still-broken code mean the opposite: they record open findings, and a fix shows as an FYI. The record states both semantics plainly.)
+
+Then the probe: a throwaway commit, since deleted, that removed `synchronized` from `trackStatement` — un-fixing #591. Run the gate over base versus probe:
+
+```
+BLOCKING FastListTracked.tla — golden property FastListTracked.tla (curated)
+held before this change and fails now
+```
+
+Exit 1. The confirmation behind it is exact about why: on the pre-fix tree the race confirms (one side synchronized, the other not); at fixed HEAD it refutes (both sides hold the monitor). Remove the fix and the verdict flips back — and the gate blocks. The full record, including the false-confirmation episode that taught the tagging lesson, is in the run records (kept privately).
+
+## Structural: reworking kombu's release
+
+The setup is [part 6's model]({% post_url 2026-11-14-structural-kombu %}), trimmed to its golden subset: `NoDoubleHold` — a resource is never both queued and checked out — the property that *held* on the base tree. A golden guards only what held.
+
+Then the regression, hand-authored and labeled in the code as `BLOG-DEMO constructed regression`: a rework of `release()` that re-queues the resource but loses the discard from `_dirty`:
+
+```diff
+     def release(self, resource):
+         if self.limit:
+-            self._dirty.discard(resource)
+             self._resource.put_nowait(resource)
+```
+
+The model is updated to track the head code, and the review runs over both trees. Its verdict on the model (strength details omitted):
+
+```json
+"specs": { "code/kombu/.specverify/Resource.als": ["changed pred Op_release"] },
+"checks":      { "code/kombu/.specverify/Resource.als": {
+                   "outcome": "violated", "violated": "NoDoubleHold" } },
+"base_checks": { "code/kombu/.specverify/Resource.als": {
+                   "outcome": "clean", "violated": null } },
+"breaks": ["NoDoubleHold"]
+```
+
+Plain-words spec diff, both sides checked, one conclusion: the change **breaks `NoDoubleHold`**. The released resource sits in both sets at once — the exact shape the golden forbids. Base and head trees, both models, and the complete [`review.json`](https://github.com/ashitpatel/specfence-blog/blob/main/evidence/kombu/review.json) are in [`evidence/kombu/`](https://github.com/ashitpatel/specfence-blog/tree/main/evidence/kombu), reproducible with the engine.
+
+### What the review says about it (added 16 November 2026)
+
+A property name is a verdict, not an explanation. Since 16 November the review also returns an `implications` entry for every property a change breaks or restores. Everything in it comes from the spec, the checker's own run and the code index, so it can't drift from the verdict. For this change ([`implications.json`](https://github.com/ashitpatel/specfence-blog/blob/main/evidence/kombu/implications.json), trimmed):
+
+```json
+"property": "NoDoubleHold", "effect": "breaks", "origin": "introduced",
+"claim": "Claim: a resource is never both queued and checked out at once.",
+"counterexample": { "side": "head", "steps": [
+  "State$2: _closed = {0}; _resource = {}; _dirty = {Elem$0}",
+  "State$3: _closed = {0}; _resource = {Elem$0}; _dirty = {Elem$0}", ... ] },
+"code": [ "code/kombu/resource.py:234 acquire",
+          "code/kombu/resource.py:58 _add_when_empty",
+          "code/kombu/resource.py:246 release" ],
+"test_outline_reason": "an Alloy counterexample is a snapshot, not a schedule: no test outline"
+```
+
+Each part answers a reviewer's question:
+- **What did it promise?** The claim, quoted from the comment its author wrote above the property. If there is none, the entry says `claim_missing` rather than inventing one.
+- **What goes wrong?** The counterexample comes from the side that fails: the head for a break (what the change now allows), the base for a restore (what the change stops). Here, at `State$3` the same resource is in the queue and checked out at once.
+- **Where in the code?** The functions the model cites, at `file:line`.
+
+For a temporal property the entry also carries a Start / Steps / Result scenario in plain words, and a test outline in the project's own language (Python, Java or Go). The outline is marked *not executed* and says plainly that the counterexample is the model's, not yet confirmed against the code.
+
+One part stays with the agent: a sentence in the user's own terms. For this break it would read something like *"after a release, the pool can hand out a connection that a caller still holds"*. The skill requires that sentence for every entry, citing the scenario. Nothing checks it yet, because the review keeps no record of the agent's report; the skill says so. Two smaller gaps remain: an Alloy break gets instance lines, not a plain-words scenario, and a Node project gets no test outline.
+
+## The honest half
+
+Two labels, kept visible:
+
+- **Both breaks are constructed.** The HikariCP probe was deliberate: it undid a real fix on the real tree, which is why the flip means something — though nobody's commit was actually caught. The kombu regression is hand-authored. What they demonstrate is the mechanism: held-before/fails-now produces a named, blocking verdict. The mechanism fires.
+- **The tool's own guard has never fired.** A post-commit hook runs the same review on the specfence repository itself: 598 guarded commits, zero `BLOCKING`. Either the codebase is clean of temporal and structural regressions in that window, or nothing tripped the pinned properties. (Three of the 598 runs errored instead of verdicting — counted, not hidden.) No accidental fire has been caught yet — and the series won't pretend otherwise.
+
+That closes the loop the series opened: tests sample instances; these models exhaust shapes and interleavings; findings are confirmed against the real code or they don't ship; and the models stand guard afterwards. One post remains: [the landscape]({% post_url 2026-11-16-landscape %}) — where this all fits among Specula, vericoding, Axiom Math, Imandra, Qodo, Intent Lab, &Truth, Petra, SDD, and the tradition they share.
+
+*Series note (2026-11-21): the guard count above is refreshed to 598, still zero `BLOCKING`.*
+
+{% include series.html %}
+
+*Evidence note (2026-11-23): the run records this post cites are kept privately; ask the author for access.*
