@@ -2,12 +2,12 @@
 title: "Services, examined: the database platform, finally instantiated"
 description: "Run 43 sets eight blind testers on two Django services: platform modules meet real code (33 kept specs), 30 of 31 findings adjudicated real — and own-fix recall still 0/8."
 layout: post
-series: specfence
+series: deixon
 part: 22
 date: 2026-11-19
 ---
 
-*Part 22 of 24 in a series on specfence. The [previous post]({% post_url 2026-11-20-code-mode-closes %}) closed the gate audit. This one reopens the evidence drawer for the first run on services instead of libraries. Evidence: the run records (kept privately).*
+*Part 22 of 24 in a series on deixon. The [previous post]({% post_url 2026-11-20-code-mode-closes %}) closed the gate audit. This one reopens the evidence drawer for the first run on services instead of libraries. Evidence: the run records (kept privately).*
 
 *Level L2 · Needs: comfort reading short Python excerpts. Two projects, file by file.*
 

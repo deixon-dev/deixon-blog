@@ -2,12 +2,12 @@
 title: "How to talk to the tool"
 description: "Prompt craft from a real run: five lines of pool prose, six elicitation rounds, one overridden recommendation, two user pushbacks that changed the product — and how to read what comes back."
 layout: post
-series: specfence
+series: deixon
 part: 13
 date: 2026-11-11
 ---
 
-*Part 13 of 24 in a series on specfence. The finale isn't a verdict — it's the conversation that produces one, reconstructed from the pool run's real record. Evidence: [`evidence/pool/`](https://github.com/ashitpatel/specfence-blog/tree/main/evidence/pool).*
+*Part 13 of 24 in a series on deixon. The finale isn't a verdict — it's the conversation that produces one, reconstructed from the pool run's real record. Evidence: [`evidence/pool/`](https://github.com/deixon-dev/deixon-blog/tree/main/evidence/pool).*
 
 *Level L1 · Needs: nothing. The conversation behind the verdicts.*
 
@@ -45,7 +45,7 @@ Both fixes shipped the same week. The meta-lesson: when the interaction feels wr
 
 The run's reports each end in an action, and the pool run hit the classic arc. First `forge_done` reported "9 scenario(s) not yet accepted" — everything else green, the contract unsigned. The user read all nine scenarios, accepted them via the answers file, and the gate closed: `done: true`. The order matters: the tool never signs on your behalf, and the gate never passes unsigned.
 
-The same rule applies when the one answering is a bot. In a bot team, a driver bot supplies the requirements and dev bots build, and a dev bot can write any file the driver can, the answers file included. So the driver's answers come in a signed envelope instead, and the engine checks the signature before it reads a word. Checking the envelope wasn't enough: a dev bot could skip the tools and append a line to the record file the done-gate reads. So when the orchestrator pins the driver's key, every gate counts a stored decision only if a signed envelope says the same thing. A relayed "accept" is refused, and a hand-written record is ignored and listed. That holds only with the key pinned where no dev bot can reach it; when a dev bot starts its own server, the key ids in every record give tamper-evidence, not proof. The setup is in the [bot-teams guide](https://github.com/ashitpatel/specfence-blog/blob/main/evidence/manual/bot-teams.md).
+The same rule applies when the one answering is a bot. In a bot team, a driver bot supplies the requirements and dev bots build, and a dev bot can write any file the driver can, the answers file included. So the driver's answers come in a signed envelope instead, and the engine checks the signature before it reads a word. Checking the envelope wasn't enough: a dev bot could skip the tools and append a line to the record file the done-gate reads. So when the orchestrator pins the driver's key, every gate counts a stored decision only if a signed envelope says the same thing. A relayed "accept" is refused, and a hand-written record is ignored and listed. That holds only with the key pinned where no dev bot can reach it; when a dev bot starts its own server, the key ids in every record give tamper-evidence, not proof. The setup is in the [bot-teams guide](https://github.com/deixon-dev/deixon-blog/blob/main/evidence/manual/bot-teams.md).
 
 A disclosure: the envelope's first version checked signatures only on the tool path. Two forgeries got through it: appending acceptance lines to the scenario record, and hand-writing the other decision records. We found both while planning the first bot-team run, before any run, and pinning the key closed both. In that run, the pinned engine stopped all six scripted forgeries (results).
 

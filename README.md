@@ -1,6 +1,6 @@
-# specfence-blog
+# deixon-blog
 
-A 24-part blog series on specfence: what it is, why exhaustive checking earns its keep next to testing, five worked examples, the landscape and trust point, three deep comparisons, the conversation, and an evaluation arc. Written in the style of the author's [ai4sgfinder](https://ashitpatel.github.io/ai4sgfinder/) and [lesson-scaffold-builder](https://ashitpatel.github.io/lesson-scaffold-builder/) series.
+A 24-part blog series on deixon: what it is, why exhaustive checking earns its keep next to testing, five worked examples, the landscape and trust point, three deep comparisons, the conversation, and an evaluation arc. Written in the style of the author's [ai4sgfinder](https://ashitpatel.github.io/ai4sgfinder/) and [lesson-scaffold-builder](https://ashitpatel.github.io/lesson-scaffold-builder/) series.
 
 ## Layout
 
@@ -22,7 +22,7 @@ bundle exec jekyll serve   # or: jekyll serve
 
 ## Publish
 
-Push this directory as a GitHub repository with Pages enabled (Jekyll, `blog/` as the source or the repo root — adjust accordingly). If the repository is not named `specfence-blog`, update `baseurl` in `blog/_config.yml` (one line) to match.
+Push this directory as a GitHub repository with Pages enabled (Jekyll, `blog/` as the source or the repo root — adjust accordingly). If the repository is not named `deixon-blog`, update `baseurl` in `blog/_config.yml` (one line) to match.
 
 ## License
 

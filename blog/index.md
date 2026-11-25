@@ -2,7 +2,7 @@
 layout: home
 ---
 
-A series on specfence: what it is, why exhaustive checking might earn its keep next to testing, five worked examples, the neighbor landscape, the evidence file drawer by drawer, two gate audits, the structural track measured end to end, and a second engine for the temporal side. Every example links to its evidence in this repository. The tool's own code repository is private for now; ask the author for access.
+A series on deixon: what it is, why exhaustive checking might earn its keep next to testing, five worked examples, the neighbor landscape, the evidence file drawer by drawer, two gate audits, the structural track measured end to end, and a second engine for the temporal side. Every example links to its evidence in this repository. The tool's own code repository is private for now; ask the author for access.
 
 Three ways to read it:
 

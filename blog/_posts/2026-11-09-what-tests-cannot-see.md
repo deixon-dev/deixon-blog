@@ -2,12 +2,12 @@
 title: "What tests cannot see"
 description: "Tests check instances: this run, this interleaving, this input. Concurrency and structure bugs live in the interleavings and shapes no test constructs. A series on checking those exhaustively instead."
 layout: post
-series: specfence
+series: deixon
 part: 1
 date: 2026-11-09
 ---
 
-*Part 1 of 24 in a series on specfence, a tool that turns requirements or code into checkable Alloy and TLA+ guardrails. Every example links to its evidence.*
+*Part 1 of 24 in a series on deixon, a tool that turns requirements or code into checkable Alloy and TLA+ guardrails. Every example links to its evidence.*
 
 *Level L1 · Needs: nothing. The idea in plain words.*
 
@@ -20,7 +20,7 @@ That is the gap this series is about. Tests check *instances*: this input, this 
 
 The industry's answer has mostly been *more instances*: more tests, stress runs, fuzzers, chaos engineering. All of them sample. The alternative is to stop sampling and start *exhausting*: write down what the system may do as a precise model, then check every reachable state of that model, at small scope, by machine. A model checker does not run your code three thousand times. It examines every interleaving the model allows — tens of thousands of states in seconds — and either proves the property holds within the bound or hands you the exact trace that breaks it.
 
-That is what specfence does, and this series shows it working. The tool takes requirements in plain prose, or existing code, and builds two kinds of model behind the scenes: an Alloy model of the system's *shapes* (what states are legal) and a TLA+ model of its *behavior* (what interleavings are possible). It checks both, confirms each counterexample against the real code, and then keeps the models as guardrails: every later change is re-checked against them, and a change that breaks a guarded property is flagged at review time.
+That is what deixon does, and this series shows it working. The tool takes requirements in plain prose, or existing code, and builds two kinds of model behind the scenes: an Alloy model of the system's *shapes* (what states are legal) and a TLA+ model of its *behavior* (what interleavings are possible). It checks both, confirms each counterexample against the real code, and then keeps the models as guardrails: every later change is re-checked against them, and a change that breaks a guarded property is flagged at review time.
 
 Five worked examples follow, each with its evidence in this repository:
 

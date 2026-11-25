@@ -1,13 +1,13 @@
 ---
 title: "How it works: two checkers and the loop around them"
-description: "Specfence's capabilities in one tour: four doors into one workflow, an Alloy model for shapes and a TLA+ model for interleavings, a confirmed-against-the-code-or-it-isn't-a-bug rule, and change guards that put the models to work."
+description: "Deixon's capabilities in one tour: four doors into one workflow, an Alloy model for shapes and a TLA+ model for interleavings, a confirmed-against-the-code-or-it-isn't-a-bug rule, and change guards that put the models to work."
 layout: post
-series: specfence
+series: deixon
 part: 2
 date: 2026-11-10
 ---
 
-*Part 2 of 24 in a series on specfence. [Part 1]({% post_url 2026-11-09-what-tests-cannot-see %}) named the gap: tests sample instances, while concurrency and structure bugs hide in interleavings and shapes no test constructs.*
+*Part 2 of 24 in a series on deixon. [Part 1]({% post_url 2026-11-09-what-tests-cannot-see %}) named the gap: tests sample instances, while concurrency and structure bugs hide in interleavings and shapes no test constructs.*
 
 *Level L1 · Needs: part 1 (or nothing, at a skim). The machinery tour.*
 

@@ -2,12 +2,12 @@
 title: "The guard that fires"
 description: "Two changes that break guarded properties: a probe that un-fixes HikariCP issue #591 trips the temporal gate with BLOCKING, and a rework of kombu's release breaks the structural golden. Both caught at review time."
 layout: post
-series: specfence
+series: deixon
 part: 7
 date: 2026-11-11
 ---
 
-*Part 7 of 24 in a series on specfence. The series so far: [the gap]({% post_url 2026-11-09-what-tests-cannot-see %}), [the machinery]({% post_url 2026-11-10-how-it-works %}), [greenfield]({% post_url 2026-11-11-greenfield-pool %}), [a guarded feature]({% post_url 2026-11-12-feature-log4j %}), [a temporal catch]({% post_url 2026-11-13-temporal-stomp %}), [a structural catch]({% post_url 2026-11-14-structural-kombu %}). This post closes the loop: what happens when a change breaks a guarded property.*
+*Part 7 of 24 in a series on deixon. The series so far: [the gap]({% post_url 2026-11-09-what-tests-cannot-see %}), [the machinery]({% post_url 2026-11-10-how-it-works %}), [greenfield]({% post_url 2026-11-11-greenfield-pool %}), [a guarded feature]({% post_url 2026-11-12-feature-log4j %}), [a temporal catch]({% post_url 2026-11-13-temporal-stomp %}), [a structural catch]({% post_url 2026-11-14-structural-kombu %}). This post closes the loop: what happens when a change breaks a guarded property.*
 
 *Level L2 · Needs: parts 2 and 6 (goldens, the kombu model). Two gate firings.*
 
@@ -52,11 +52,11 @@ The model is updated to track the head code, and the review runs over both trees
 "breaks": ["NoDoubleHold"]
 ```
 
-Plain-words spec diff, both sides checked, one conclusion: the change **breaks `NoDoubleHold`**. The released resource sits in both sets at once — the exact shape the golden forbids. Base and head trees, both models, and the complete [`review.json`](https://github.com/ashitpatel/specfence-blog/blob/main/evidence/kombu/review.json) are in [`evidence/kombu/`](https://github.com/ashitpatel/specfence-blog/tree/main/evidence/kombu), reproducible with the engine.
+Plain-words spec diff, both sides checked, one conclusion: the change **breaks `NoDoubleHold`**. The released resource sits in both sets at once — the exact shape the golden forbids. Base and head trees, both models, and the complete [`review.json`](https://github.com/deixon-dev/deixon-blog/blob/main/evidence/kombu/review.json) are in [`evidence/kombu/`](https://github.com/deixon-dev/deixon-blog/tree/main/evidence/kombu), reproducible with the engine.
 
 ### What the review says about it (added 16 November 2026)
 
-A property name is a verdict, not an explanation. Since 16 November the review also returns an `implications` entry for every property a change breaks or restores. Everything in it comes from the spec, the checker's own run and the code index, so it can't drift from the verdict. For this change ([`implications.json`](https://github.com/ashitpatel/specfence-blog/blob/main/evidence/kombu/implications.json), trimmed):
+A property name is a verdict, not an explanation. Since 16 November the review also returns an `implications` entry for every property a change breaks or restores. Everything in it comes from the spec, the checker's own run and the code index, so it can't drift from the verdict. For this change ([`implications.json`](https://github.com/deixon-dev/deixon-blog/blob/main/evidence/kombu/implications.json), trimmed):
 
 ```json
 "property": "NoDoubleHold", "effect": "breaks", "origin": "introduced",
@@ -84,7 +84,7 @@ One part stays with the agent: a sentence in the user's own terms. For this brea
 Two labels, kept visible:
 
 - **Both breaks are constructed.** The HikariCP probe was deliberate: it undid a real fix on the real tree, which is why the flip means something — though nobody's commit was actually caught. The kombu regression is hand-authored. What they demonstrate is the mechanism: held-before/fails-now produces a named, blocking verdict. The mechanism fires.
-- **The tool's own guard has never fired.** A post-commit hook runs the same review on the specfence repository itself: 598 guarded commits, zero `BLOCKING`. Either the codebase is clean of temporal and structural regressions in that window, or nothing tripped the pinned properties. (Three of the 598 runs errored instead of verdicting — counted, not hidden.) No accidental fire has been caught yet — and the series won't pretend otherwise.
+- **The tool's own guard has never fired.** A post-commit hook runs the same review on the deixon repository itself: 598 guarded commits, zero `BLOCKING`. Either the codebase is clean of temporal and structural regressions in that window, or nothing tripped the pinned properties. (Three of the 598 runs errored instead of verdicting — counted, not hidden.) No accidental fire has been caught yet — and the series won't pretend otherwise.
 
 That closes the loop the series opened: tests sample instances; these models exhaust shapes and interleavings; findings are confirmed against the real code or they don't ship; and the models stand guard afterwards. One post remains: [the landscape]({% post_url 2026-11-16-landscape %}) — where this all fits among Specula, vericoding, Axiom Math, Imandra, Qodo, Intent Lab, &Truth, Petra, SDD, and the tradition they share.
 

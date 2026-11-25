@@ -2,12 +2,12 @@
 title: "sshd, examined: the KEX match and the agent that stayed racy"
 description: "Twelve blind first-looks at Apache MINA SSHD: a KEX race matched exactly to its upstream fix, a timeout cluster matched in part, agent and process races still present at HEAD — and the fixes depth never reached."
 layout: post
-series: specfence
+series: deixon
 part: 15
 date: 2026-11-11
 ---
 
-*Part 15 of 24 in a series on specfence. [Part 14]({% post_url 2026-11-20-evidence-overview %}) opened the file drawer. This post reads one drawer all the way through: the Java half. Evidence: the run records (kept privately).*
+*Part 15 of 24 in a series on deixon. [Part 14]({% post_url 2026-11-20-evidence-overview %}) opened the file drawer. This post reads one drawer all the way through: the Java half. Evidence: the run records (kept privately).*
 
 *Level L2 · Needs: comfort reading short Java excerpts. One project, file by file.*
 

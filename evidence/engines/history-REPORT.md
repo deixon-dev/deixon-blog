@@ -16,7 +16,7 @@
 
 ## Verdict
 
-The referral stands (Jepsen/Elle/Porcupine judge runs; specfence stays
+The referral stands (Jepsen/Elle/Porcupine judge runs; deixon stays
 static), and a TLA+-derived oracle bridge is feasible whenever someone
 wants it: define the I/O-boundary convention, generate the model, feed
 recorded histories. No build proposed — the demand signal (a Go target

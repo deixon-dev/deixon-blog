@@ -2,12 +2,12 @@
 title: "The evidence file: what the runs actually showed"
 description: "Every number behind the series' claims, in one place: blinded cleanroom runs on Java, Python and Go projects, directed runs, what matched upstream fixes, what stayed potential, and what the tool demonstrably misses."
 layout: post
-series: specfence
+series: deixon
 part: 14
 date: 2026-11-11
 ---
 
-*Part 14 of 24 in a series on specfence. The first thirteen posts told stories. This one opens the file drawer: every run behind them, with the numbers that keep the stories honest. Evidence: the run records (kept privately).*
+*Part 14 of 24 in a series on deixon. The first thirteen posts told stories. This one opens the file drawer: every run behind them, with the numbers that keep the stories honest. Evidence: the run records (kept privately).*
 
 *Level L1 · Needs: part 1. The calibrated whole.*
 

@@ -2,12 +2,12 @@
 title: "A second engine for the temporal side"
 description: "TLC stays the default; Apalache takes the slices TLC cannot reach — symbolic verdicts at Max=10^9 in under a second, an adoption rule that only takes violations, and a trace handoff proven step-for-step. Plus the spikes that did not make it."
 layout: post
-series: specfence
+series: deixon
 part: 24
 date: 2026-11-22
 ---
 
-*Part 24 of 24 in a series on specfence. The [previous post]({% post_url 2026-11-20-structural-verdicts %}) closed the Alloy side with measured verdicts. This one opens a second engine on the temporal side: same specs, verdicts where TLC runs out — and the rule that keeps a bounded hold from ever passing as exhaustive. Evidence: [`evidence/engines/`](https://github.com/ashitpatel/specfence-blog/tree/main/evidence/engines).*
+*Part 24 of 24 in a series on deixon. The [previous post]({% post_url 2026-11-20-structural-verdicts %}) closed the Alloy side with measured verdicts. This one opens a second engine on the temporal side: same specs, verdicts where TLC runs out — and the rule that keeps a bounded hold from ever passing as exhaustive. Evidence: [`evidence/engines/`](https://github.com/deixon-dev/deixon-blog/tree/main/evidence/engines).*
 
 ## Where TLC runs out
 

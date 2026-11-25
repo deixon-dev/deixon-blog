@@ -1,12 +1,12 @@
-title: specfence
+title: deixon
 tagline: Checkable guardrails for concurrent software
 description: >-
-  Notes on specfence, a tool that turns requirements or code into Alloy and
+  Notes on deixon, a tool that turns requirements or code into Alloy and
   TLA+ models, checks them exhaustively, and guards every later change
   against them — with worked examples and the evidence beside each claim.
 author: Ashit Patel
 url: https://ashitpatel.github.io
-baseurl: /specfence-blog
+baseurl: /deixon-blog
 permalink: /:title/
 future: true
 theme: minima

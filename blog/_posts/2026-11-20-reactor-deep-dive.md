@@ -2,12 +2,12 @@
 title: "reactor, examined: precision on a family the tool never trained on"
 description: "Eight blind first-looks at reactor-core: 31 of 34 subclaims real, one open partial match, all eight own fixes missed — the adversarial run, with the misses stated plainly."
 layout: post
-series: specfence
+series: deixon
 part: 17
 date: 2026-11-13
 ---
 
-*Part 17 of 24 in a series on specfence. [Part 16]({% post_url 2026-11-20-celery-deep-dive %}) filed the series; this post reopens it for one drawer nobody planned: the first codebase family the tool met with no detector history behind it. Evidence: the run records (kept privately).*
+*Part 17 of 24 in a series on deixon. [Part 16]({% post_url 2026-11-20-celery-deep-dive %}) filed the series; this post reopens it for one drawer nobody planned: the first codebase family the tool met with no detector history behind it. Evidence: the run records (kept privately).*
 
 *Level L2 · Needs: comfort reading short Java excerpts. One project, file by file.*
 

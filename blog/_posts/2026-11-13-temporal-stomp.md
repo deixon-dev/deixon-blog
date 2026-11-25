@@ -2,12 +2,12 @@
 title: "The lost wake-up"
 description: "A latent race in the stomp messaging library, found blind from a 2013 tree, matched exactly to the upstream fix, and demonstrated hanging real code — forced, and 10 times in 3,000 unforced trials."
 layout: post
-series: specfence
+series: deixon
 part: 5
 date: 2026-11-11
 ---
 
-*Part 5 of 24 in a series on specfence. [Part 4]({% post_url 2026-11-12-feature-log4j %}) flagged a bug at introduction. This one was already there — sitting in dormant code since 2013. Evidence: the run records (kept privately).*
+*Part 5 of 24 in a series on deixon. [Part 4]({% post_url 2026-11-12-feature-log4j %}) flagged a bug at introduction. This one was already there — sitting in dormant code since 2013. Evidence: the run records (kept privately).*
 
 *Level L2 · Needs: comfort reading short code excerpts. The race, line by line.*
 

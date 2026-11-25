@@ -20,12 +20,12 @@ shutdown, lazy refill after restart). See `requirements.md` for the settled text
 
 ## 15-minute replay
 
-Requirements: Python 3.12+, Java 17+, access to the specfence repo.
+Requirements: Python 3.12+, Java 17+, access to the deixon repo.
 
 ```bash
-gh release download v0.0.1 -p "*.whl" -O specfence_engine-0.0.1-py3-none-any.whl
+gh release download v0.0.1 -p "*.whl" -O deixon_engine-0.0.1-py3-none-any.whl
 python3 -m venv .venv && source .venv/bin/activate
-pip install ./specfence_engine-0.0.1-py3-none-any.whl
+pip install ./deixon_engine-0.0.1-py3-none-any.whl
 python replay.py
 ```
 
@@ -64,13 +64,13 @@ verified both ways, so the cfg omits it with the reason inline).
 | `Pool.tla` / `Pool.cfg` | behavior spec + checker config |
 | `pool.als` | structural spec |
 | `scenarios/` | the English contract (`.feature`) + machine form (`.json`) |
-| `.specfence/answers.yaml` | every elicited answer, including scenario digests |
-| `.specfence/deployment/pool/library.json` | the confirmed deployment model |
+| `.deixon/answers.yaml` | every elicited answer, including scenario digests |
+| `.deixon/deployment/pool/library.json` | the confirmed deployment model |
 | `replay.py` | the 15-minute re-verification |
 
 ## Next steps
 
-- Open an agent session here with the specfence server enabled and ask for a
+- Open an agent session here with the deixon server enabled and ask for a
   guided walkthrough of `Pool.tla` (`tutorial_spec`, then side-by-side).
 - Change a requirement, re-run the checkers, and watch the gate refuse.
 - Read the greenfield guide (`docs/user-manual/greenfield-run.md`) for the full

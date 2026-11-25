@@ -32,7 +32,7 @@ for p in POSTS:
         fail(f"{p.name}: missing front matter")
         continue
     fm = t.split("---")[1]
-    for k in ("title:", "description:", "layout: post", "series: specfence", "date:", "part:"):
+    for k in ("title:", "description:", "layout: post", "series: deixon", "date:", "part:"):
         if k not in fm:
             fail(f"{p.name}: front matter lacks {k}")
     m = re.search(r"^part:\s*(\d+)\s*$", fm, re.M)
@@ -58,7 +58,7 @@ if 'sort: "part"' not in nav:
     fail('series.html: nav must sort by "part" (filenames share dates, so path order is not series order)')
 
 for p in POSTS:
-    for m in re.findall(r"specfence-blog/(?:tree|blob)/main/([^)]*)", p.read_text()):
+    for m in re.findall(r"deixon-blog/(?:tree|blob)/main/([^)]*)", p.read_text()):
         if not (ROOT / m).exists():
             fail(f"{p.name}: evidence link {m} missing")
 

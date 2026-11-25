@@ -2,18 +2,18 @@
 title: "Eight more gates: what an agent could close alone in the code mode"
 description: "The gate audit from part 19, run again on the code mode: eight ways an agent alone could hide a bug, an owed slice or a guard property from the person. Each now waits for the person's yes or says what it holds back. Three cheaper checks of the skill text found two of the problems too."
 layout: post
-series: specfence
+series: deixon
 part: 21
 date: 2026-11-11
 ---
 
-*Part 21 of 24 in a series on specfence. [Part 19]({% post_url 2026-11-20-gate-audit %}) audited the requirements mode's gates and closed four routes an agent could take alone. This post asks the same question of the code mode, where the stakes are bugs in someone's existing code. Evidence: the round records linked below, in the specfence repository.*
+*Part 21 of 24 in a series on deixon. [Part 19]({% post_url 2026-11-20-gate-audit %}) audited the requirements mode's gates and closed four routes an agent could take alone. This post asks the same question of the code mode, where the stakes are bugs in someone's existing code. Evidence: the round records linked below, in the deixon repository.*
 
 *Level L2 · Needs: the code mode from [part 2]({% post_url 2026-11-10-how-it-works %}) and the gate audit in [part 19]({% post_url 2026-11-20-gate-audit %}). No formal methods.*
 
 ## The question, again
 
-In the code mode, specfence reads existing code, models the risky parts in TLA+, and reports what it finds. The report the person reads has a fixed shape:
+In the code mode, deixon reads existing code, models the risky parts in TLA+, and reports what it finds. The report the person reads has a fixed shape:
 - **bugs**, which a checker confirmed;
 - **model-level findings**, which it did not;
 - **owed slices**, the parts it has not modelled yet;
