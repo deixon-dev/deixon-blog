@@ -5,7 +5,7 @@ description: >-
   TLA+ models, checks them exhaustively, and guards every later change
   against them — with worked examples and the evidence beside each claim.
 author: Ashit Patel
-url: https://ashitpatel.github.io
+url: https://deixon-dev.github.io
 baseurl: /deixon-blog
 permalink: /:title/
 future: true
